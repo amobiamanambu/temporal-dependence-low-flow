@@ -1,0 +1,8 @@
+{
+  "GAGE_ID": "01013500",
+  "forecast_initialization_date": "2020-06-03",
+  "observed_onset_day": 32,
+  "Q10_normalized_flow": 0.37217598097502974,
+  "selected_member_count": 25,
+  "selection_rule": "preselected Figure 2 basin; median eligible held-out Q10-onset case"
+}

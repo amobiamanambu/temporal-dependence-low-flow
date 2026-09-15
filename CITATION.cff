@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this software or the example data, please cite the repository and associated article."
+title: "Temporal Dependence Improves Probabilistic Forecasts of Low-Flow Events Across CONUS Catchments"
+type: software
+authors:
+  - family-names: Amanambu
+    given-names: "Amobichukwu C."
+    email: acamanambu@ua.edu
+version: 0.1.0
+date-released: 2026-09-14
+repository-code: "https://github.com/amobiamanambu/temporal-dependence-low-flow"
+license: MIT
+keywords:
+  - low flow
+  - hydrological drought
+  - probabilistic forecasting
+  - ensemble trajectories
+  - temporal dependence
+abstract: >-
+  Code and compact example data for evaluating how cross-day ensemble
+  dependence affects probabilistic forecasts of low-flow occurrence, onset,
+  duration, and cumulative deficit.
+references:
+  - type: dataset
+    title: "Temporal Dependence Improves Probabilistic Forecasts of Low-Flow Events Across CONUS Catchments"
+    doi: "10.5281/zenodo.22770792"
+    url: "https://doi.org/10.5281/zenodo.22770792"

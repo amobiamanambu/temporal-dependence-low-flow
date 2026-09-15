@@ -1,0 +1,8 @@
+{
+  "status": "pass",
+  "files_audited": 157,
+  "python_files_parsed": 110,
+  "largest_file_bytes": 587717,
+  "problems": [],
+  "manifest": "REPOSITORY_MANIFEST.csv"
+}

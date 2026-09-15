@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Environments and editors
+.venv/
+venv/
+.DS_Store
+.idea/
+.vscode/
+
+# Local configuration and secrets
+.env
+.env.*
+*.key
+*.pem
+
+# Large external hydrometeorological inputs
+data/external/*
+!data/external/README.md
+*.nc
+*.nc4
+*.grib
+*.grb
+*.rdb
+*.rdb.gz
+*.sqlite
+*.db
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+
+# Full-workflow generated products
+workflow/full_reproduction/continental_run/
+workflow/full_reproduction/lowflow_forecast_benchmark/results/
+workflow/full_reproduction/temporal_coherence_paper/data_release/
+workflow/full_reproduction/temporal_coherence_paper/temporal_validation/
+workflow/full_reproduction/temporal_coherence_paper/reviewer_strengthening/
+workflow/full_reproduction/temporal_coherence_paper/manuscript_v2/
+workflow/full_reproduction/temporal_coherence_paper/figures_v2/output/
+
+# Private manuscript-authoring and submission materials
+*.docx
+*Main_Manuscript*.pdf
+*Supporting_Information*.pdf
+*Highlights*.pdf
+workflow/full_reproduction/temporal_coherence_paper/scripts/29_build_wrr_manuscript.py
+workflow/full_reproduction/temporal_coherence_paper/scripts/33_build_wrr_manuscript_v2.py
+workflow/full_reproduction/temporal_coherence_paper/scripts/37_prepare_peer_review_package.py
+workflow/full_reproduction/temporal_coherence_paper/scripts/38_audit_submission.py
+workflow/full_reproduction/temporal_coherence_paper/scripts/40_format_joh_tables.py
+workflow/full_reproduction/temporal_coherence_paper/accepted_figure_revisions/integrate_figure_06_selected_basins.py
+
+# Temporary and partial files
+*.tmp
+*.partial
+*.part
+*.log

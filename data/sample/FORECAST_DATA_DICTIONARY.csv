@@ -1,0 +1,41 @@
+field,units_or_type,description
+data_version,string,Release version.
+GAGE_ID,string,USGS station identifier stored as text; leading zeros retained.
+issue_date,date,Weekly retrospective forecast initialization date; historical field name retained.
+valid_end_date,date,Last date in the forecast window.
+lead_days,integer,"Forecast-window length in days (30, 45, 60, or 90)."
+threshold_name,string,Low-flow threshold label; Q10 is the training-period lower 10th percentile (Q90 in exceedance notation).
+target,string,Forecast target; onset means flow at forecast initialization is above Q10.
+model,string,Frozen basin-specific 101-member hydrograph-state analog.
+spatial_group,string,Aggregated GAGES-II ecoregion.
+quality_tier,string,Continental workflow record-quality tier.
+is_reference,boolean,GAGES-II reference-basin indicator.
+record_years,number,Valid discharge record length in years within 1980--2025.
+latitude,degrees north,USGS gage latitude from GAGES-II.
+longitude,degrees east,USGS gage longitude from GAGES-II.
+initial_flow_mm_day,mm d-1,Observed runoff depth on the forecast initialization date.
+threshold_q10_mm_day,mm d-1,Basin Q10 threshold fixed using observations through 2015.
+dry_spell_age_days,days,Consecutive dry-screen days available at initialization.
+ensemble_members,count,Number of forecast members.
+lead_is_scorable,boolean,True when held-out event and non-event counts each meet the frozen minimum.
+observed_event,boolean,Whether Q10 was crossed at least once in the window.
+forecast_event_probability,probability,Ensemble probability of at least one Q10 crossing.
+observed_endpoint_low,boolean,Whether flow was at or below Q10 on the final window day.
+forecast_endpoint_probability,probability,Ensemble probability of endpoint flow at or below Q10.
+observed_onset_day,days,First observed Q10 crossing after forecast initialization; missing if no crossing.
+observed_onset_day_censored,days,"First crossing, or lead+1 when no crossing occurred."
+forecast_onset_p05,days,5th percentile of censored ensemble onset day.
+forecast_onset_p50,days,Median censored ensemble onset day.
+forecast_onset_p95,days,95th percentile of censored ensemble onset day.
+observed_duration_days,days,Observed total low-flow-day count within the window; historical field name retained.
+forecast_duration_p05,days,5th percentile of ensemble total low-flow-day count; historical field name retained.
+forecast_duration_p50,days,Median ensemble total low-flow-day count; historical field name retained.
+forecast_duration_p95,days,95th percentile of ensemble total low-flow-day count; historical field name retained.
+observed_deficit_mm,mm,Observed cumulative runoff-depth deficit below Q10.
+forecast_deficit_mm_p05,mm,5th percentile of ensemble cumulative deficit.
+forecast_deficit_mm_p50,mm,Median ensemble cumulative deficit.
+forecast_deficit_mm_p95,mm,95th percentile of ensemble cumulative deficit.
+observed_minimum_flow_mm_day,mm d-1,Observed minimum runoff depth in the window.
+forecast_minimum_flow_mm_day_p05,mm d-1,5th percentile of ensemble minimum flow.
+forecast_minimum_flow_mm_day_p50,mm d-1,Median ensemble minimum flow.
+forecast_minimum_flow_mm_day_p95,mm d-1,95th percentile of ensemble minimum flow.
