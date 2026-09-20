@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit inputs without modifying the established continental workflow."""
+"""Audit the inputs required by the temporal-dependence workflow."""
 
 from __future__ import annotations
 
@@ -10,8 +10,9 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPT_DIR))
 from lib.common import (  # noqa: E402
-    ATTRIBUTES_FILE, BENCHMARK_ROOT, DAILY_ROOT, INVENTORY_FILE, PROJECT_ROOT,
-    RESULTS_ROOT, STAGE18_METRICS, atomic_json, eligible_inventory, ensure_dirs,
+    ATTRIBUTES_FILE, BENCHMARK_ROOT, DAILY_ROOT, DEVELOPMENT_PANEL,
+    INVENTORY_FILE, PROJECT_ROOT, RESULTS_ROOT, atomic_json,
+    eligible_inventory, ensure_dirs,
     load_benchmark_config,
 )
 
@@ -19,10 +20,7 @@ from lib.common import (  # noqa: E402
 def main() -> None:
     ensure_dirs()
     config = load_benchmark_config()
-    required = [
-        PROJECT_ROOT / "scripts" / "18_test_operational_value.py",
-        INVENTORY_FILE, ATTRIBUTES_FILE, STAGE18_METRICS, DAILY_ROOT,
-    ]
+    required = [INVENTORY_FILE, ATTRIBUTES_FILE, DEVELOPMENT_PANEL, DAILY_ROOT]
     missing = [str(path) for path in required if not path.exists()]
     if missing:
         raise FileNotFoundError("Missing required inputs: " + ", ".join(missing))
@@ -42,7 +40,7 @@ def main() -> None:
             "fit_end", "calibration_start", "calibration_end",
             "evaluation_start", "evaluation_end",
         ]},
-        "manuscript_files_required": False,
+        "private_authoring_files_required": False,
     }
     atomic_json(report, RESULTS_ROOT / "00_audit" / "input_audit.json")
     print(json.dumps(report, indent=2))

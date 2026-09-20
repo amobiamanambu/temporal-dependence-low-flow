@@ -310,7 +310,7 @@ def main() -> None:
             "Forecasts are initialized weekly on an observed dry day with dry age >= 3 days.",
             "No numerical weather-prediction archive is used.",
             "The experiment predicts Q5/Q10/Q20 threshold events, not water-use impacts.",
-            "No manuscript file was modified by this analysis stage.",
+            "No private authoring file was modified by this analysis stage.",
         ],
     }
     atomic_json(decision, root / "EXTENDED_FINAL_DECISION.json")

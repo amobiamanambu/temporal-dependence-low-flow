@@ -21,13 +21,13 @@ FORBIDDEN_SUFFIXES = {
     ".nc", ".nc4", ".grib", ".grb", ".sqlite", ".db", ".shp", ".shx",
     ".dbf", ".doc", ".docx", ".odt",
 }
-PRIVATE_AUTHORING_NAMES = {
-    "29_build_wrr_manuscript.py",
-    "33_build_wrr_manuscript_v2.py",
-    "37_prepare_peer_review_package.py",
-    "38_audit_submission.py",
-    "40_format_joh_tables.py",
-    "integrate_figure_06_selected_basins.py",
+PRIVATE_PATH_TOKENS = {
+    "accepted_figure_revisions",
+    "figure_redesign_review",
+    "horizon_skill_candidate",
+    "manuscript",
+    "private_authoring",
+    "submission",
 }
 PRIVATE_AUTHORING_PATTERNS = (
     re.compile(r"wrr\.add_body\("),
@@ -71,8 +71,9 @@ def audit(files: list[Path]) -> dict[str, object]:
     python_files = 0
     for path in files:
         relative = path.relative_to(ROOT).as_posix()
-        if path.name in PRIVATE_AUTHORING_NAMES:
-            problems.append(f"private manuscript-authoring file found: {relative}")
+        lowered = relative.lower()
+        if any(token in lowered for token in PRIVATE_PATH_TOKENS):
+            problems.append(f"private or development-only path found: {relative}")
         if path.stat().st_size > MAX_TRACKED_BYTES:
             problems.append(f"file exceeds 25 MiB: {relative}")
         if path.suffix.lower() in FORBIDDEN_SUFFIXES:
@@ -95,7 +96,7 @@ def audit(files: list[Path]) -> dict[str, object]:
                 for pattern in PRIVATE_AUTHORING_PATTERNS:
                     if pattern.search(text):
                         problems.append(
-                            f"possible manuscript-authoring code found: {relative}"
+                            f"possible article-authoring code found: {relative}"
                         )
                         break
             if path.suffix.lower() == ".py":

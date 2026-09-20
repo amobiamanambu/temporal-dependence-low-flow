@@ -254,7 +254,7 @@ def main() -> None:
             oracle_summary["archive_acquisition_justified"]
         ),
         "future_observations_used_by_eligible_models": False,
-        "manuscript_modified": False,
+        "private_authoring_files_modified": False,
     }
     atomic_json(decision, root / "EXTENDED_SCREEN_DECISION.json")
     print(json.dumps(decision, indent=2))

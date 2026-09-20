@@ -35,17 +35,6 @@ STAGES = {
     7: "07_matched_daily",
     8: "08_matched_qc",
     9: "09_snow_proxy",
-    10: "10_transitions",
-    11: "11_validation_sample",
-    12: "12_estimator_validation",
-    13: "13_irreversibility",
-    14: "14_recession",
-    15: "15_continental_results",
-    16: "16_scaling_tests",
-    17: "17_distribution_tests",
-    18: "18_lowflow_predictability_horizons",
-    19: "19_paper_figures",
-    20: "20_results_archive",
 }
 
 
@@ -74,32 +63,6 @@ def validate_config(cfg: dict[str, Any]) -> None:
     snow = cfg["snow_proxy"]
     if snow["snow_temperature_c"] >= snow["rain_temperature_c"]:
         raise ValueError("snow_temperature_c must be below rain_temperature_c")
-    if not str(cfg["predictability_test"]["spatial_group_column"]).strip():
-        raise ValueError("predictability_test.spatial_group_column must not be empty")
-    scaling = cfg["scaling_test"]
-    if scaling["target_exponent"] <= 0 or scaling["near_target_tolerance"] <= 0:
-        raise ValueError("scaling_test target and tolerance must be positive")
-    if not 0 < scaling["minimum_subgroup_estimable_fraction"] <= 1:
-        raise ValueError("scaling_test.minimum_subgroup_estimable_fraction must be in (0, 1]")
-    distribution = cfg["distribution_test"]
-    if distribution["minimum_transitions"] < 100:
-        raise ValueError("distribution_test.minimum_transitions must be at least 100")
-    if not 0 < distribution["minimum_paired_nonestimated_fraction"] <= 1:
-        raise ValueError(
-            "distribution_test.minimum_paired_nonestimated_fraction must be in (0, 1]"
-        )
-    if int(distribution["tail_sensitivity_minimum_transitions"]) < 100:
-        raise ValueError(
-            "distribution_test.tail_sensitivity_minimum_transitions must be at least 100"
-        )
-    if not 0 < float(distribution["tail_sensitivity_low_flow_quantile"]) < 0.5:
-        raise ValueError(
-            "distribution_test.tail_sensitivity_low_flow_quantile must be in (0, 0.5)"
-        )
-    if not 0 < float(distribution["minimum_tail_sensitivity_basin_fraction"]) <= 1:
-        raise ValueError(
-            "distribution_test.minimum_tail_sensitivity_basin_fraction must be in (0, 1]"
-        )
     if float(distribution["minimum_tail_frequency_multiple_of_gaussian"]) <= 1:
         raise ValueError(
             "distribution_test.minimum_tail_frequency_multiple_of_gaussian must exceed 1"

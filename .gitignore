@@ -45,23 +45,20 @@ data/external/*
 # Full-workflow generated products
 workflow/full_reproduction/continental_run/
 workflow/full_reproduction/lowflow_forecast_benchmark/results/
-workflow/full_reproduction/temporal_coherence_paper/data_release/
 workflow/full_reproduction/temporal_coherence_paper/temporal_validation/
-workflow/full_reproduction/temporal_coherence_paper/reviewer_strengthening/
-workflow/full_reproduction/temporal_coherence_paper/manuscript_v2/
-workflow/full_reproduction/temporal_coherence_paper/figures_v2/output/
+workflow/full_reproduction/temporal_coherence_paper/dependence_reconstruction/
+workflow/full_reproduction/temporal_coherence_paper/zenodo_deposit/
+workflow/full_reproduction/figures/output/
+workflow/full_reproduction/figures/source_tables/
 
-# Private manuscript-authoring and submission materials
+# Private article-authoring and submission materials
 *.docx
 *Main_Manuscript*.pdf
 *Supporting_Information*.pdf
 *Highlights*.pdf
-workflow/full_reproduction/temporal_coherence_paper/scripts/29_build_wrr_manuscript.py
-workflow/full_reproduction/temporal_coherence_paper/scripts/33_build_wrr_manuscript_v2.py
-workflow/full_reproduction/temporal_coherence_paper/scripts/37_prepare_peer_review_package.py
-workflow/full_reproduction/temporal_coherence_paper/scripts/38_audit_submission.py
-workflow/full_reproduction/temporal_coherence_paper/scripts/40_format_joh_tables.py
-workflow/full_reproduction/temporal_coherence_paper/accepted_figure_revisions/integrate_figure_06_selected_basins.py
+**/*manuscript*.py
+**/*private_authoring*.py
+**/*submission*.py
 
 # Temporary and partial files
 *.tmp

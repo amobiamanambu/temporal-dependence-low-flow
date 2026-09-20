@@ -29,14 +29,10 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PAPER_ROOT = PROJECT_ROOT / "temporal_coherence_paper"
 DEFAULT_WORK_ROOT = PAPER_ROOT / "zenodo_deposit" / "work_v1"
 DEFAULT_RELEASE_ROOT = PAPER_ROOT / "zenodo_deposit" / "v1.0.0_upload"
-GITHUB_ROOT = (
-    PAPER_ROOT
-    / "github_release"
-    / "temporal-dependence-low-flow"
-)
+GITHUB_ROOT = PROJECT_ROOT.parents[1]
 GITHUB_URL = "https://github.com/amobiamanambu/temporal-dependence-low-flow"
-FINAL_ROOT = PAPER_ROOT / "reviewer_strengthening" / "full"
-FINAL_METRICS = FINAL_ROOT / "reviewer_strengthening_metrics.csv.gz"
+FINAL_ROOT = PAPER_ROOT / "dependence_reconstruction" / "full"
+FINAL_METRICS = FINAL_ROOT / "dependence_reconstruction_metrics.csv.gz"
 CALIBRATION = PAPER_ROOT / "temporal_validation" / "basin_horizon_calibration.csv.gz"
 ECOREGION_CALIBRATION = PAPER_ROOT / "temporal_validation" / "ecoregion_horizon_calibration.csv"
 BASIN_ATTRIBUTES = PROJECT_ROOT / "continental_run" / "06_basin_index" / "basin_index.csv"
@@ -57,13 +53,13 @@ TITLE = (
 )
 DOI = "10.5281/zenodo.22770792"
 DOI_URL = f"https://doi.org/{DOI}"
-PRIVATE_AUTHORING_NAMES = {
-    "29_build_wrr_manuscript.py",
-    "33_build_wrr_manuscript_v2.py",
-    "37_prepare_peer_review_package.py",
-    "38_audit_submission.py",
-    "40_format_joh_tables.py",
-    "integrate_figure_06_selected_basins.py",
+PRIVATE_PATH_TOKENS = {
+    "accepted_figure_revisions",
+    "figure_redesign_review",
+    "horizon_skill_candidate",
+    "manuscript",
+    "private_authoring",
+    "submission",
 }
 PRIVATE_AUTHORING_MARKERS = (
     "wrr.add_body(",
@@ -128,13 +124,7 @@ ANALYSIS_FILES = [
 ]
 
 
-FIGURE_SOURCE_DIRS = [
-    PAPER_ROOT / "figures_v2" / "source_tables",
-    PAPER_ROOT / "figure_redesign_review_2026-09-13" / "source_tables",
-    PAPER_ROOT / "figure1_options" / "source_tables",
-    PAPER_ROOT / "horizon_skill_candidate" / "source_tables",
-    PAPER_ROOT / "figure9_replacement" / "source_tables",
-]
+FIGURE_SOURCE_DIRS = [PROJECT_ROOT / "figures" / "source_tables"]
 
 
 def sha256(path: Path) -> str:
@@ -163,9 +153,11 @@ def build_zip(
     destination: Path,
     sources: list[tuple[Path, str]],
     excluded_names: set[str] | None = None,
+    excluded_parts: set[str] | None = None,
 ) -> None:
     """Create a deterministic ZIP from files or directory trees."""
     excluded_names = excluded_names or set()
+    excluded_parts = excluded_parts or set()
     temporary = destination.with_name(f".{destination.name}.{os.getpid()}.tmp")
     with zipfile.ZipFile(temporary, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
         for source, archive_root in sources:
@@ -174,6 +166,8 @@ def build_zip(
                     if not path.is_file():
                         continue
                     if path.name in excluded_names:
+                        continue
+                    if any(part in excluded_parts for part in path.parts):
                         continue
                     if any(part in {".git", "__pycache__", ".cache", ".DS_Store"} for part in path.parts):
                         continue
@@ -192,7 +186,7 @@ def validate_public_source_snapshot(path: Path) -> None:
             member_path = Path(member.filename)
             if member.is_dir():
                 continue
-            if member_path.name in PRIVATE_AUTHORING_NAMES:
+            if any(token in member.filename.lower() for token in PRIVATE_PATH_TOKENS):
                 problems.append(member.filename)
                 continue
             if member_path.suffix.lower() in {".doc", ".docx", ".odt"}:
@@ -793,20 +787,24 @@ def main() -> None:
     build_zip(
         release_root / "manuscript_figure_source_tables.zip",
         figure_sources,
-        excluded_names={
-            # Superseded by the active 3,402-basin Figure 1 source tables in
-            # figure1_options/source_tables. The older files describe the
-            # broader 3,733-basin extension-processing population.
-            "figure_01_analysis_sample.csv",
-            "figure_01_ecoregions.csv",
-            "figure_01_exclusion_reasons.csv",
-        },
+        excluded_names=set(),
     )
     source_snapshot = release_root / "source_code_snapshot.zip"
     build_zip(
         source_snapshot,
         [(GITHUB_ROOT, "temporal-dependence-low-flow")],
-        excluded_names=PRIVATE_AUTHORING_NAMES,
+        excluded_names=set(),
+        excluded_parts={
+            "continental_run",
+            "results",
+            "temporal_validation",
+            "dependence_reconstruction",
+            "zenodo_deposit",
+            "external",
+            "derived",
+            "output",
+            "source_tables",
+        },
     )
     validate_public_source_snapshot(source_snapshot)
 

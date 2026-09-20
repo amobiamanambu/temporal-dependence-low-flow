@@ -14,7 +14,7 @@ from lib.common import (
 
 PACKAGES = [
     "numpy", "pandas", "scipy", "netCDF4", "geopandas", "rasterio", "shapely",
-    "pyproj", "matplotlib", "statsmodels", "scikit-learn", "pyshp",
+    "pyproj", "matplotlib", "scikit-learn", "pyshp",
 ]
 
 

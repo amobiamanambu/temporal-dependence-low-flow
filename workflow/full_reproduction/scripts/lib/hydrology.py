@@ -1,4 +1,4 @@
-"""Hydrologic unit conversions, snow proxy, and transition construction."""
+"""Hydrologic unit conversions and the temperature-index snow proxy."""
 
 from __future__ import annotations
 
@@ -62,57 +62,3 @@ def add_temperature_index_snow_proxy(frame: pd.DataFrame, settings: dict) -> pd.
         & (out["snowmelt_proxy_mm"] > 0)
     )
     return out
-
-
-def add_transition_columns(frame: pd.DataFrame, settings: dict) -> pd.DataFrame:
-    out = frame.sort_values("date").copy()
-    dates = pd.to_datetime(out["date"], errors="coerce")
-    q = out["q_mm_day"].to_numpy(dtype=float)
-    median_q = float(np.nanmedian(q[q > settings["minimum_q_mm_day"]])) if np.any(q > 0) else np.nan
-    out["q_norm"] = out["q_mm_day"] / median_q
-    # Long-lag irreversibility is computed directly from Q, so only the short
-    # lags needed by the recession estimator are materialized here.
-    for lag in settings["recession_lags_days"]:
-        consecutive = (dates.shift(-lag) - dates).dt.days.eq(lag)
-        out[f"q_next_{lag}d"] = out["q_norm"].shift(-lag)
-        out[f"dq_norm_{lag}d"] = out[f"q_next_{lag}d"] - out["q_norm"]
-        out[f"valid_transition_{lag}d"] = (
-            consecutive & out["q_norm"].gt(0) & out[f"q_next_{lag}d"].gt(0)
-        )
-
-    melt = out.get("snowmelt_risk", pd.Series(False, index=out.index)).fillna(True).astype(bool)
-    for lag in settings["recession_lags_days"]:
-        for antecedent in settings["antecedent_windows_days"]:
-            # Window is t-(a-1), ..., t, ..., t+lag. This excludes transitions
-            # with precipitation or proxy snowmelt anywhere over the increment.
-            offsets = range(-(antecedent - 1), lag + 1)
-            p_window = pd.concat([out["pr_mm"].shift(-offset) for offset in offsets], axis=1).max(
-                axis=1, skipna=False
-            )
-            melt_components = pd.concat(
-                [melt.shift(-offset) for offset in offsets], axis=1
-            )
-            # Conservatively mark a window as melt-affected if any day has melt
-            # risk or if any required day is unavailable. Expressing this logic
-            # directly avoids pandas' deprecated silent object-to-bool downcast.
-            melt_window = melt_components.eq(True).any(axis=1) | melt_components.isna().any(axis=1)
-            out[f"forcing_window_max_pr_a{antecedent}_l{lag}"] = p_window
-            out[f"forcing_window_melt_a{antecedent}_l{lag}"] = melt_window
-            for threshold in settings["precipitation_thresholds_mm_day"]:
-                label = str(threshold).replace(".", "p")
-                out[f"dry_p{label}_a{antecedent}_l{lag}"] = p_window.le(threshold) & ~melt_window
-    return out
-
-
-def contiguous_run_filter(flags: pd.Series, minimum_days: int) -> np.ndarray:
-    values = flags.fillna(False).to_numpy(dtype=bool)
-    selected = np.zeros(len(values), dtype=bool)
-    start = None
-    for index, flag in enumerate(np.r_[values, False]):
-        if flag and start is None:
-            start = index
-        elif not flag and start is not None:
-            if index - start >= minimum_days:
-                selected[start:index] = True
-            start = None
-    return selected

@@ -1,18 +1,18 @@
-# Production workflow archive
+# Full continental workflow
 
-This directory preserves the directory relationships expected by the scripts
-used in the continental analysis. Run commands from this directory so relative
-paths resolve correctly.
+This directory contains the production code for the temporal-dependence
+low-flow study. Run commands from this directory so that relative paths resolve
+correctly.
 
-- `upstream/`: provider-data download, climate extraction, and discharge QC.
-- `scripts/`: matched discharge–meteorology preparation (Stages 00–11).
-- `lowflow_forecast_benchmark/`: candidate screening, frozen confirmation,
-  same-marginal comparisons, and 105/120-day extension.
-- `temporal_coherence_paper/`: derived-data export, temporal validation, data-release utilities, and publication
-  figure code.
+- `upstream/`: retrieval and quality control of provider data.
+- `scripts/`: preparation of matched daily discharge and meteorological data
+  through the snowmelt screen (Stages 00–09).
+- `lowflow_forecast_benchmark/`: the frozen development panel, trajectory
+  comparison, continental confirmation, and 105/120-day extension.
+- `temporal_coherence_paper/`: dependence reconstruction, validation,
+  uncertainty, and data-release code.
+- `figures/`: one documented entry point for every article figure.
 
-The folder intentionally excludes generated results, raw data, Python caches,
-abandoned figure designs, manuscript backups, and the unused AORC experiment.
-Manuscript text and manuscript-authoring or submission-package utilities are
-also intentionally excluded.
-See `../../docs/full_reproduction.md` for the run order and required inputs.
+Generated results, raw provider data, caches, discarded experiments, private
+article text, authoring utilities, and submission files are intentionally
+excluded. See `../../docs/full_reproduction.md` for the exact run order.

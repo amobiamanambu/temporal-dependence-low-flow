@@ -15,29 +15,12 @@
   "precipitation_threshold_mm_day": 0.1,
   "antecedent_days": 3,
   "minimum_contiguous_days": 5,
-  "minimum_fit_cases": 500,
-  "minimum_calibration_cases": 100,
-  "minimum_evaluation_cases": 100,
   "minimum_trajectory_fit_cases": 200,
   "minimum_trajectory_evaluation_cases": 50,
   "minimum_events": 10,
   "minimum_nonevents": 10,
   "ensemble_members": 101,
   "probability_clip": 0.000001,
-  "gpd_tail_probability": 0.10,
-  "gpd_minimum_exceedances": 50,
-  "random_forest_trees": 96,
-  "random_forest_min_leaf": 30,
   "screening_panel_basins": 192,
-  "regional_residuals_per_basin_lead": 250,
-  "regional_pool_cap": 250000,
-  "regional_shrinkage_equivalent_count": 200,
-  "bootstrap_replicates": 2000,
-  "promotion": {
-    "primary_reference": "adaptive_heavytail_recession_logistic",
-    "minimum_positive_primary_leads": 3,
-    "maximum_day1_brier_loss": 0.0005,
-    "minimum_mean_primary_brier_gain": 0.00025,
-    "minimum_mean_basin_fraction_improved": 0.50
-  }
+  "bootstrap_replicates": 2000
 }

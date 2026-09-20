@@ -41,9 +41,9 @@ from lib.extended_trajectory import HYDROGRAPH_FEATURES, first_event_time  # noq
 PAPER_ROOT = PROJECT_ROOT / "temporal_coherence_paper"
 FINAL_METRICS = (
     PAPER_ROOT
-    / "reviewer_strengthening"
+    / "dependence_reconstruction"
     / "full"
-    / "reviewer_strengthening_metrics.csv.gz"
+    / "dependence_reconstruction_metrics.csv.gz"
 )
 DEFAULT_OUTPUT_ROOT = PAPER_ROOT / "zenodo_deposit" / "work_v1"
 RELEASE_LEADS = (30, 45, 60, 90, 105, 120)

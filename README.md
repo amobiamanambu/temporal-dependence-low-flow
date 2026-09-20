@@ -1,4 +1,4 @@
-# Temporal Dependence in Probabilistic Low-Flow Event Forecasts
+# Temporal Dependence Improves Probabilistic Forecasts of Low-Flow Events Across CONUS Catchments
 
 Reproducible code and compact example data for the study:
 
@@ -14,8 +14,8 @@ and cumulative deficit across thousands of CONUS catchments.
 
 - A small, real-data example that runs in a few seconds.
 - Two example figures: forecast verification and trajectory anatomy.
-- The exact production scripts used for data preparation, forecasting,
-  sensitivity analysis, public-data assembly, and publication figures.
+- The production scripts used for data preparation, forecasting, sensitivity
+  analysis, public-data assembly, and publication figures.
 - Frozen configuration files, data dictionaries, provenance notes, and tests.
 - Clear separation between reusable code, small example data, external inputs,
   and generated outputs.
@@ -72,8 +72,9 @@ python -m unittest discover -s tests
 ├── tests/               # Automated tests for metrics and the sample workflow
 └── workflow/full_reproduction/
     ├── scripts/         # Matched discharge–meteorology preparation
-    ├── lowflow_forecast_benchmark/  # 1–120-day forecast experiments
-    └── temporal_coherence_paper/    # Data-release and publication-figure utilities
+    ├── lowflow_forecast_benchmark/  # Final 1–120-day forecast workflow
+    ├── temporal_coherence_paper/    # Validation and data-release utilities
+    └── figures/         # Final numbered figure entry points
 ```
 
 The concise sample workflow is the best entry point for new users. The full
@@ -140,8 +141,8 @@ Code is released under the MIT License. The small derived example data are
 released under CC BY 4.0; see `LICENSE-DATA.md`. Original USGS and GridMET data
 remain subject to the terms and citation guidance of their providers.
 
-Manuscript text, manuscript-building code, submission-audit utilities, and
-peer-review-package scripts are intentionally excluded from this repository.
+Article text, authoring code, submission utilities, editorial correspondence,
+and discarded experiments are intentionally excluded from this repository.
 
 ## Contact
 

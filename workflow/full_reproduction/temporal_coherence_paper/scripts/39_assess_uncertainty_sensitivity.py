@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Compare fixed-ecoregion and region-resampled uncertainty intervals.
 
-The primary manuscript treats the nine aggregated GAGES-II ecoregions as
+The primary analysis treats the nine aggregated GAGES-II ecoregions as
 fixed strata in a CONUS population and resamples basins within every stratum.
 This sensitivity repeats selected comparisons with the earlier two-stage
 scheme that also resamples the nine ecoregions. The latter is deliberately
@@ -34,12 +34,12 @@ EXTENSION_METRICS = (
     BENCHMARK_ROOT / "results" / "10_extension_120" /
     "extension_120_metrics.csv.gz"
 )
-REVIEW_ROOT = PAPER_ROOT / "reviewer_strengthening" / "full"
-REVIEW_METRICS = REVIEW_ROOT / "reviewer_strengthening_metrics.csv.gz"
-PRIMARY_INTERVALS = REVIEW_ROOT / "archived_stratified_basin_intervals.csv"
-RECONSTRUCTION_INTERVALS = REVIEW_ROOT / "reconstruction_comparisons.csv"
-OUTPUT = REVIEW_ROOT / "uncertainty_scheme_sensitivity.csv"
-RECEIPT = REVIEW_ROOT / "STAGE39_SUCCESS.json"
+ANALYSIS_ROOT = PAPER_ROOT / "dependence_reconstruction" / "full"
+DEPENDENCE_METRICS = ANALYSIS_ROOT / "dependence_reconstruction_metrics.csv.gz"
+PRIMARY_INTERVALS = ANALYSIS_ROOT / "archived_stratified_basin_intervals.csv"
+RECONSTRUCTION_INTERVALS = ANALYSIS_ROOT / "reconstruction_comparisons.csv"
+OUTPUT = ANALYSIS_ROOT / "uncertainty_scheme_sensitivity.csv"
+RECEIPT = ANALYSIS_ROOT / "STAGE39_SUCCESS.json"
 
 PRACTICAL_SCORES = (
     "event_brier",
@@ -99,7 +99,7 @@ def two_stage_interval(
     The resampling statistic follows the earlier analysis: each replicate is
     the case-weighted mean absolute score improvement. Interval endpoints are
     divided by the original paired reference score to express them on the same
-    relative-score scale as the manuscript point estimate.
+    relative-score scale as the primary point estimate.
     """
     rng = np.random.default_rng(seed)
     regional = [group for _, group in paired.groupby("spatial_group", dropna=False)]
@@ -240,7 +240,7 @@ def build_table(replicates: int, seed: int) -> pd.DataFrame:
                 "region_resampled_ci_high": float(region_high),
             })
 
-    review = pd.read_csv(REVIEW_METRICS, dtype={"GAGE_ID": str})
+    review = pd.read_csv(DEPENDENCE_METRICS, dtype={"GAGE_ID": str})
     review["GAGE_ID"] = normalize_gage(review["GAGE_ID"])
     review = review[
         review["aggregation"].eq("basin") & review["lead_days"].eq(120)

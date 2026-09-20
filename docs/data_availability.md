@@ -51,10 +51,10 @@ primary Q10 forecast cohort. The `lead_is_scorable` field identifies the
 smaller, window-specific subsets that meet the frozen minimum of 10 events and
 10 non-events.
 
-## Manuscript statement
+## Suggested data-availability statement
 
 > USGS daily discharge, GAGES-II attributes, and GridMET meteorological data
-> are available from the original providers cited in the manuscript. The code
+> are available from the original providers cited in the article. The code
 > and compact example are available at
 > https://github.com/amobiamanambu/temporal-dependence-low-flow, and the
 > basin-level verification outputs, figure-source data, and derived

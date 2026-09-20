@@ -29,5 +29,5 @@ release. The identifier is recorded in this repository, `CITATION.cff`, and
 the article Data Availability statement.
 
 The frozen source-code snapshot contains only public analysis, validation,
-data-release, and figure-generation code. Manuscript text, manuscript-building
-code, submission-audit utilities, and peer-review-package scripts are excluded.
+data-release, and figure-generation code. Article text, authoring code,
+submission utilities, and editorial correspondence are excluded.
