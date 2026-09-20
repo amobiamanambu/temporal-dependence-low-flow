@@ -8,8 +8,7 @@ paths resolve correctly.
 - `scripts/`: matched discharge–meteorology preparation (Stages 00–11).
 - `lowflow_forecast_benchmark/`: candidate screening, frozen confirmation,
   same-marginal comparisons, and 105/120-day extension.
-- `temporal_coherence_paper/`: derived-data export, temporal validation,
-  reviewer-strengthening analyses, data-release utilities, and publication
+- `temporal_coherence_paper/`: derived-data export, temporal validation, data-release utilities, and publication
   figure code.
 
 The folder intentionally excludes generated results, raw data, Python caches,
